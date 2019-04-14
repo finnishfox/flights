@@ -1,0 +1,95 @@
+@import "../../utils/helpers.scss";
+
+.Flights {
+  width: 1140px;
+  padding: 0 10px;
+
+  &__tabs {
+    position: relative;
+    display: flex;
+    width: 100%;
+    border-radius: 60px 60px 0 0;
+    height: 60px;
+  }
+
+  &__button {
+    border-radius: 60px 60px 0 0;
+    cursor: pointer;
+    color: white;
+    background: $light-blue;
+    text-transform: uppercase;
+    font-size: 24px;
+    border: 0;
+    font-weight: 600;
+    line-height: 40px;
+    padding: 10px 0;
+    outline: none;
+    position: absolute;
+    right: 0;
+    width: calc(50% + 100px);
+
+    &:first-child {
+      left: 0;
+    }
+
+    &:hover {
+      background: $blue;
+    }
+
+    &--active {
+      background: white;
+      color: $blue;
+      z-index: 10;
+
+      &:hover {
+        background: white;
+      }
+    }
+  }
+
+  &__table {
+    background: white;
+    width: 100%;
+  }
+
+  &__table-header {
+    padding: 12px;
+    font-size: 16px;
+    color: $gray;
+    font-weight: 600;
+    text-align: left;
+
+    &:first-child {
+      text-align: center;
+    }
+  }
+
+  &__terminal {
+    font-size: 22px;
+    border: 1px solid $green;
+    color: $green;
+    border-radius: 50%;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &__data {
+    font-size: 18px;
+    line-height: 40px;
+    padding: 16px 10px;
+    color: $black;
+  }
+
+  &__table-row {
+
+    &:nth-child(odd) {
+      background: rgba(0, 102, 135, .1);
+    }
+  }
+}

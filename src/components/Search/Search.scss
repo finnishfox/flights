@@ -1,0 +1,57 @@
+@import "../../utils/helpers.scss";
+
+.Search {
+  margin-bottom: 40px;
+
+  &__title {
+    font-weight: 300;
+    font-size: 70px;
+    color: $black;
+    margin-bottom: 32px;
+    margin-top: 20px;
+    text-transform: uppercase;
+  }
+
+  &__form {
+    display: flex;
+    height: 80px;
+  }
+
+  &__field {
+    width: 520px;
+    background: white;
+  }
+
+  &__input {
+    font-size: 24px;
+    color: black;
+    height: 100%;
+    width: calc(100% - 70px);
+    padding-left: 70px;
+    border: 0;
+    outline: none;
+
+    &::placeholder {
+      color: #95989a;
+    }
+  }
+
+  &__submit-button {
+    text-transform: uppercase;
+    background: $blue;
+    color: white;
+    font-size: 26px;
+    min-width: 200px;
+    cursor: pointer;
+    font-weight: 700;
+    padding: 0 20px;
+    text-align: left;
+    border-radius: 0 80px 0 0;
+    border: 0;
+    transition: border-radius 0.3s;
+
+    &:hover {
+      border-radius: 0 40px 0 0;
+    }
+  }
+}
