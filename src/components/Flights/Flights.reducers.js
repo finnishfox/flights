@@ -3,7 +3,7 @@ export const defaultState = {
     departures:[]
 };
 
-export default function users(initialState = defaultState, action) {
+export default function flights(initialState = defaultState, action) {
     switch (action.type) {
         case "FLIGHTS_LOADED":
             return {

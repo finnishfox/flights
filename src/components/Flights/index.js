@@ -1,11 +1,12 @@
 import Flights from "./Flights";
 import {connect} from 'react-redux';
-import {getArrivals,getDepartures} from "./Flights.selectors";
+import {getArrivals, getDepartures, getSearchQuery} from "./Flights.selectors";
 import {getFlightsList} from "./Flights.actions";
 
 const mapStateToProps = state => ({
     arrivals: getArrivals(state),
-    departures:getDepartures(state)
+    departures: getDepartures(state),
+    searchQuery: getSearchQuery(state)
 });
 
 const mapDispatchToProps = {

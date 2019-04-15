@@ -77,6 +77,12 @@
     align-items: center;
     margin-left: 50%;
     transform: translateX(-50%);
+    font-weight: 700;
+
+    &--blue{
+      border: 1px solid $blue;
+      color: $blue;
+    }
   }
 
   &__data {
@@ -91,5 +97,40 @@
     &:nth-child(odd) {
       background: rgba(0, 102, 135, .1);
     }
+  }
+
+  &__dates-navigation {
+    padding: 25px 0 35px 0;
+    background: white;
+  }
+
+  &__change-date-button {
+    color: $light-gray;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 16px;
+    -webkit-appearance: none;
+    border: 0;
+    position: relative;
+    padding-bottom: 5px;
+    cursor: pointer;
+    outline: none;
+
+    &::after {
+      content: '';
+      height: 3px;
+      background:$light-gray;
+      position: absolute;
+      bottom:0;
+      left: 0;
+      width: 100%;
+    }
+  }
+
+  &__date-text {
+    font-size: 12px;
+    font-weight: 400;
+    display: block;
+    margin-bottom: 5px;
   }
 }
