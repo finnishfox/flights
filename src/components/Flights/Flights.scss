@@ -12,6 +12,16 @@
     height: 60px;
   }
 
+  &__departure-icon {
+    width: 40px;
+    height: 28px;
+    margin-right: 15px;
+
+    & .Flights__plane-icon {
+      fill: white;
+    }
+  }
+
   &__button {
     border-radius: 60px 60px 0 0;
     cursor: pointer;
@@ -27,6 +37,10 @@
     position: absolute;
     right: 0;
     width: calc(50% + 100px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color .3s ease-in-out;
 
     &:first-child {
       left: 0;
@@ -40,6 +54,10 @@
       background: white;
       color: $blue;
       z-index: 10;
+
+      .Flights__plane-icon {
+        fill: $blue;
+      }
 
       &:hover {
         background: white;
@@ -100,7 +118,7 @@
     }
 
     &--hidden {
-      display: none;
+      visibility: hidden;
     }
   }
 
@@ -112,19 +130,52 @@
   }
 
   &__table-row {
+    transition: box-shadow .3s ease-in-out;
 
     &:nth-child(odd) {
       background: rgba(0, 102, 135, .1);
     }
 
-    &:hover{
-      box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    &:hover {
+      box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
     }
   }
 
   &__dates-navigation {
     padding: 25px 0 35px 0;
     background: white;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  &__calendar-icon {
+    width: 30px;
+    height: 26px;
+  }
+
+  &__calendar {
+    margin-left: 20px;
+  }
+
+  &__current-date{
+    font-size: 12px;
+    font-weight: 700;
+    display: block;
+    color: $blue;
+    text-align: center;
+  }
+
+  &__calendar-wrapper {
+    width: 40px;
+    height: 37px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $blue;
+  }
+
+  &__navigation-wrapper {
+    padding-left: 30px;
   }
 
   &__change-date-button {
@@ -139,6 +190,7 @@
     cursor: pointer;
     outline: none;
     background: transparent;
+    line-height: 24px;
 
     &::after {
       content: '';
@@ -156,5 +208,6 @@
     font-weight: 400;
     display: block;
     margin-bottom: 5px;
+    line-height: 18px;
   }
 }

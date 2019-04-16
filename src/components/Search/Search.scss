@@ -12,6 +12,12 @@
     text-transform: uppercase;
   }
 
+  &__icon{
+    width: 44px;
+    height: 43px;
+    margin: 0 13px ;
+  }
+
   &__form {
     display: flex;
     height: 80px;
@@ -20,6 +26,8 @@
   &__field {
     width: 520px;
     background: white;
+    display: flex;
+    align-items: center;
   }
 
   &__input {
@@ -27,9 +35,9 @@
     color: black;
     height: 100%;
     width: calc(100% - 70px);
-    padding: 0 0 0 70px;
     border: 0;
     outline: none;
+    font-family: $open-sans;
 
     &::placeholder {
       color: #95989a;
@@ -48,7 +56,7 @@
     text-align: left;
     border-radius: 0 80px 0 0;
     border: 0;
-    transition: border-radius 0.3s;
+    transition: border-radius 0.3s ease-in-out;
     outline: none;
 
     &:hover {
