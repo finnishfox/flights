@@ -26,6 +26,38 @@ class Flights extends React.Component {
 
     };
 
+    sendNotification = async (flight) => {
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+            const now = moment();
+            let time = '';
+            if (this.state.currentTab === 'departures') {
+                time = moment(flight.timeDepExpectCalc);
+            } else {
+                time = moment(flight.timeToStand);
+            }
+            let duration = moment.duration(time.diff(now));
+            const minutesBeforeReminder = duration.subtract(moment.duration(3, 'hours')).as('minutes');
+            const msBeforeReminder = minutesBeforeReminder * 60 * 1000;
+            setTimeout(() => new Notification('Taxi reminder', {
+                body: "3 hours before flight. Time to order a taxi!",
+            }), msBeforeReminder)
+        }
+    };
+
+    isMoreThanThreeHoursBeforeFlight = (flight) => {
+        const now = moment();
+        let time = '';
+        if (this.state.currentTab === 'departures') {
+            time = moment(flight.timeDepExpectCalc);
+        } else {
+            time = moment(flight.timeToStand);
+        }
+        let duration = moment.duration(time.diff(now));
+        return duration.as('hours') > 3;
+
+    };
+
 
     showFlights = () => {
         const {departures, arrivals, searchQuery} = this.props;
@@ -45,11 +77,11 @@ class Flights extends React.Component {
         } else {
             flights = arrivals;
             flights = flights
-                .filter(flight => moment(flight.timeArrExpectCalc).isSame(moment(this.state.currentDate), 'day'))
+                .filter(flight => moment(flight.timeToStand).isSame(moment(this.state.currentDate), 'day'))
                 .sort((a, b) => {
-                    if (moment(a.timeArrExpectCalc).isBefore(moment(b.timeArrExpectCalc))) {
+                    if (moment(a.timeToStand).isBefore(moment(b.timeToStand))) {
                         return -1;
-                    } else if (moment(a.timeArrExpectCalc).isAfter(moment(b.timeArrExpectCalc))) {
+                    } else if (moment(a.timeToStand).isAfter(moment(b.timeToStand))) {
                         return 1;
                     }
                     return 0;
@@ -57,7 +89,10 @@ class Flights extends React.Component {
         }
 
         if (searchQuery !== '') {
-            let filteredFlights = flights.filter(flight => flight.fltNo === searchQuery);
+            let filteredFlights = flights.filter(flight => {
+                const flightNumbers = flight.codeShareData.map(element => element.codeShare);
+                return flightNumbers.includes(searchQuery);
+            });
             if (filteredFlights.length === 0) {
                 filteredFlights = flights.filter(flight => {
                     if ((this.state.currentTab === 'departures')) {
@@ -76,7 +111,7 @@ class Flights extends React.Component {
                     date = new Date(flight.timeDepExpectCalc);
                     city = flight['airportToID.city_en']
                 } else {
-                    date = new Date(flight.timeArrExpectCalc);
+                    date = new Date(flight.timeToStand);
                     city = flight['airportFromID.city_en'];
                 }
                 let status = '';
@@ -92,6 +127,15 @@ class Flights extends React.Component {
                         break;
                     case 'LN':
                         status = `Landed at ${this.getTime(new Date(flight.timeLandFact))}`;
+                        break;
+                    case 'BD':
+                        status = 'Boarding';
+                        break;
+                    case 'GC':
+                        status = 'Gate closed';
+                        break;
+                    case 'FR':
+                        status = 'In flight';
                         break;
                     default:
                         status = '';
@@ -118,6 +162,12 @@ class Flights extends React.Component {
                             </ul>
                         </td>}
                         <td className="Flights__data">{flight.gateNo}</td>
+                        <td>
+                            <button
+                                className={this.isMoreThanThreeHoursBeforeFlight(flight) ? "Flights__reminder-button" : "Flights__reminder-button Flights__reminder-button--hidden"}
+                                onClick={() => this.sendNotification(flight)}>Taxi reminder
+                            </button>
+                        </td>
                     </tr>)
             });
     };
@@ -166,6 +216,7 @@ class Flights extends React.Component {
                         <th scope="col" className="Flights__table-header">Airline</th>
                         <th scope="col" className="Flights__table-header">Flight</th>
                         <th scope="col" className="Flights__table-header">Gate</th>
+                        <th scope="col" className="Flights__table-header"/>
                     </tr>
                     </thead>
                     <tbody>

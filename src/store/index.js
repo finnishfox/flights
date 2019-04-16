@@ -5,7 +5,9 @@ import search from '../components/Search/Search.reducers';
 
 import {combineReducers} from 'redux';
 
-const addons = [applyMiddleware(thunk),window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()];
+const addons = [applyMiddleware(thunk)
+    ,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+];
 
 const reducers = combineReducers({
     flights,

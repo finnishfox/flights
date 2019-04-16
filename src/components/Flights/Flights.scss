@@ -79,9 +79,28 @@
     transform: translateX(-50%);
     font-weight: 700;
 
-    &--blue{
+    &--blue {
       border: 1px solid $blue;
       color: $blue;
+    }
+  }
+
+  &__reminder-button {
+    color: $blue;
+    text-decoration: underline;
+    font-size: 18px;
+    -webkit-appearance: none;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    &--hidden {
+      display: none;
     }
   }
 
@@ -96,6 +115,10 @@
 
     &:nth-child(odd) {
       background: rgba(0, 102, 135, .1);
+    }
+
+    &:hover{
+      box-shadow: 0 5px 10px rgba(0,0,0,.2);
     }
   }
 
@@ -115,13 +138,14 @@
     padding-bottom: 5px;
     cursor: pointer;
     outline: none;
+    background: transparent;
 
     &::after {
       content: '';
       height: 3px;
-      background:$light-gray;
+      background: $light-gray;
       position: absolute;
-      bottom:0;
+      bottom: 0;
       left: 0;
       width: 100%;
     }
