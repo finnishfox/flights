@@ -193,6 +193,7 @@
     outline: none;
     background: transparent;
     line-height: 24px;
+    margin: 0;
 
     &::after {
       content: '';
@@ -223,6 +224,7 @@
 @media screen and (max-width: 992px) {
   .Flights {
     width: 100vw;
+    padding: 0;
 
     &__tabs {
       width: 720px;
