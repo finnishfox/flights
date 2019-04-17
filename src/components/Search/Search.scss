@@ -64,6 +64,10 @@
     &:hover {
       border-radius: 0 40px 0 0;
     }
+
+    &:focus {
+      background:$light-blue;
+    }
   }
 }
 

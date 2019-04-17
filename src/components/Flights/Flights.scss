@@ -52,6 +52,10 @@
       background: $blue;
     }
 
+    &:focus {
+      background: $blue;
+    }
+
     &--active {
       background: white;
       color: $blue;
@@ -63,6 +67,15 @@
 
       &:hover {
         background: white;
+      }
+
+      &:focus {
+        color: $light-blue;
+        background: white;
+
+        .Flights__plane-icon {
+          fill: $light-blue;
+        }
       }
     }
   }
@@ -117,6 +130,10 @@
 
     &:hover {
       text-decoration: none;
+    }
+
+    &:focus {
+      color: $light-blue;
     }
 
     &--hidden {
@@ -194,6 +211,14 @@
     background: transparent;
     line-height: 24px;
     margin: 0;
+
+    &:focus {
+      color:$light-blue;
+
+      &:after{
+        background: $light-blue;
+      }
+    }
 
     &::after {
       content: '';
@@ -317,9 +342,8 @@
   }
 }
 
-
 @media screen and (max-width: 470px) {
-  .Flights{
+  .Flights {
 
     &__table-row {
       grid-template-columns: 1fr 1fr 1fr;
