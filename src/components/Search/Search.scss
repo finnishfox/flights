@@ -12,10 +12,10 @@
     text-transform: uppercase;
   }
 
-  &__icon{
+  &__icon {
     width: 44px;
     height: 43px;
-    margin: 0 13px ;
+    margin: 0 13px;
   }
 
   &__form {
@@ -38,6 +38,7 @@
     border: 0;
     outline: none;
     font-family: $open-sans;
+    padding: 0;
 
     &::placeholder {
       color: #95989a;
@@ -61,6 +62,51 @@
 
     &:hover {
       border-radius: 0 40px 0 0;
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .Search {
+
+    &__title {
+      font-size: 60px;
+      line-height: 80px;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .Search {
+    align-self: stretch;
+
+    &__title {
+      font-weight: 300;
+      font-size: 35px;
+      line-height: 40px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    &__submit-button {
+      display: none;
+    }
+
+    &__field {
+      width: 100%;
+    }
+
+    &__input {
+      font-size: 16px;
+    }
+
+    &__form {
+      height: 50px;
+    }
+
+    &__icon {
+      width: 30px;
+      height: 30px;
     }
   }
 }

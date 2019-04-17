@@ -10,14 +10,22 @@ class Search extends React.Component {
         searchQuerySet({searchQuery: this.state.searchQuery});
     };
 
+    handleInput = (event) => {
+        if(event.keyCode === 13){
+            this.search(event);
+        }
+    };
+
     render() {
         return (
             <article className="Search">
                 <h2 className="Search__title">SEARCH FLIGHT</h2>
                 <form className="Search__form">
                     <label className="Search__field">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-512.053 29 44 43" className="Search__icon">
-                            <g id="ic_search_white" transform="translate(-512.053 29)">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             viewBox="-512.053 29 44 43"
+                             className="Search__icon">
+                            <g transform="translate(-512.053 29)">
                                 <rect width="44"
                                       height="43"
                                       fill="none"></rect>
@@ -31,7 +39,8 @@ class Search extends React.Component {
                             type="text"
                             placeholder="Destination or flight #"
                             className="Search__input"
-                            onChange={(event) => this.setState({searchQuery: event.target.value})}/>
+                            onChange={(event) => this.setState({searchQuery: event.target.value})}
+                            onKeyDown={(event) => this.handleInput(event)}/>
                     </label>
                     <button
                         type="submit"

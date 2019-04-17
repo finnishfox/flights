@@ -3,6 +3,9 @@
 .Flights {
   width: 1140px;
   padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
 
   &__tabs {
     position: relative;
@@ -40,7 +43,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color .3s ease-in-out;
 
     &:first-child {
       left: 0;
@@ -157,7 +159,7 @@
     margin-left: 20px;
   }
 
-  &__current-date{
+  &__current-date {
     font-size: 12px;
     font-weight: 700;
     display: block;
@@ -175,7 +177,7 @@
   }
 
   &__navigation-wrapper {
-    padding-left: 30px;
+    margin-left: 30px;
   }
 
   &__change-date-button {
@@ -211,3 +213,116 @@
     line-height: 18px;
   }
 }
+
+@media screen and (max-width: 1160px) {
+  .Flights {
+    width: 960px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .Flights {
+    width: 100vw;
+
+    &__tabs {
+      width: 720px;
+      align-self: center;
+    }
+
+    &__button--active {
+      width: 50%;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .Flights {
+
+    &__tabs {
+      width: 100%;
+      height: 50px;
+    }
+
+    &__thead {
+      display: none;
+    }
+
+    &__button {
+      font-size: 14px;
+      justify-content: flex-start;
+      padding: 5px 0;
+
+      &:first-child {
+        border-radius: 0 30px 0 0;
+      }
+
+      &:last-child {
+        flex-direction: row-reverse;
+        border-radius: 30px 0 0 0;
+      }
+    }
+
+    &__departure-icon {
+      margin: 0 10px;
+    }
+
+    &__calendar {
+      margin-left: 10px;
+    }
+
+    &__data {
+      padding: 5px;
+    }
+
+    &__terminal, &__gate {
+      display: none;
+    }
+
+    &__flight-number {
+      font-size: 14px;
+      color: $gray;
+    }
+
+    &__table-row {
+      display: grid;
+      grid-template-columns: 30% 50% 20%;
+      grid-template-areas: "time city ." ". status reminder" "flight-number airlines .";
+    }
+
+    &__time {
+      grid-area: time;
+    }
+
+    &__city {
+      grid-area: city;
+    }
+
+    &__status {
+      grid-area: status;
+    }
+
+    &__reminder {
+      grid-area: reminder;
+    }
+
+    &__flight-number-field {
+      grid-area: flight-number;
+    }
+
+    &__airlines {
+      grid-area: airlines;
+    }
+  }
+}
+
+
+@media screen and (max-width: 470px) {
+  .Flights{
+
+    &__table-row {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+}
+
+
