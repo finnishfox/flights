@@ -11,7 +11,7 @@ class Search extends React.Component {
     };
 
     handleInput = (event) => {
-        if(event.keyCode === 13){
+        if (event.keyCode === 13) {
             this.search(event);
         }
     };

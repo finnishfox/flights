@@ -10,10 +10,10 @@ export default function App() {
     return (
         <div className="App">
             <Provider store={store}>
-            <main className="App__content">
-                <Search/>
-                <Flights/>
-            </main>
+                <main className="App__content">
+                    <Search/>
+                    <Flights/>
+                </main>
             </Provider>
         </div>
     );

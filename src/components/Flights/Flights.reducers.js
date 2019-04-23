@@ -1,6 +1,6 @@
 export const defaultState = {
     arrivals: [],
-    departures:[]
+    departures: []
 };
 
 export default function flights(initialState = defaultState, action) {

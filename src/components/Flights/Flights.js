@@ -58,7 +58,6 @@ class Flights extends React.Component {
 
     };
 
-
     showFlights = () => {
         const {departures, arrivals, searchQuery} = this.props;
         let flights = [];
@@ -89,6 +88,7 @@ class Flights extends React.Component {
         }
 
         if (searchQuery !== '') {
+            const reg = new RegExp(searchQuery, 'ig');
             let filteredFlights = flights.filter(flight => {
                 const flightNumbers = flight.codeShareData.map(element => element.codeShare);
                 return flightNumbers.includes(searchQuery);
@@ -96,9 +96,9 @@ class Flights extends React.Component {
             if (filteredFlights.length === 0) {
                 filteredFlights = flights.filter(flight => {
                     if ((this.state.currentTab === 'departures')) {
-                        return flight['airportToID.city_en'] === searchQuery;
+                        return reg.test(flight['airportToID.city_en']);
                     }
-                    return flight['airportFromID.city_en'] === searchQuery;
+                    return reg.test(flight['airportFromID.city_en']);
                 });
             }
             flights = filteredFlights;

@@ -213,9 +213,9 @@
     margin: 0;
 
     &:focus {
-      color:$light-blue;
+      color: $light-blue;
 
-      &:after{
+      &:after {
         background: $light-blue;
       }
     }

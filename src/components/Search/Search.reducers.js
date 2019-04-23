@@ -1,5 +1,5 @@
 export const defaultState = {
-   searchQuery:''
+    searchQuery: ''
 };
 
 export default function search(initialState = defaultState, action) {

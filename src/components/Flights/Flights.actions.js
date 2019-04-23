@@ -6,11 +6,11 @@ export const flightsLoaded = payload => ({
 });
 
 export const getFlightsList = (date) => async dispatch => {
-        const result = await axios.get(`https://api.iev.aero/api/flights/${date}`);
+    const result = await axios.get(`https://api.iev.aero/api/flights/${date}`);
 
-        const arrivals=result.data.body.arrival;
-        const departures = result.data.body.departure;
+    const arrivals = result.data.body.arrival;
+    const departures = result.data.body.departure;
 
-        const action = flightsLoaded({arrivals:arrivals,departures:departures});
-        dispatch(action);
+    const action = flightsLoaded({arrivals: arrivals, departures: departures});
+    dispatch(action);
 };
