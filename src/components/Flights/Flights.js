@@ -7,6 +7,17 @@ class Flights extends React.Component {
 
     state = {currentTab: 'departures', currentDate: moment()};
 
+    labels = {
+        departure: {
+            city: 'airportToID.city_en'
+        },
+        arrival: {
+            city: 'airportFromID.city_en'
+        },
+    };
+
+
+
     componentDidMount() {
         this.loadFlights(moment());
     }
@@ -91,7 +102,7 @@ class Flights extends React.Component {
             const reg = new RegExp(searchQuery, 'ig');
             let filteredFlights = flights.filter(flight => {
                 const flightNumbers = flight.codeShareData.map(element => element.codeShare);
-                return flightNumbers.includes(searchQuery);
+                return reg.test(flightNumbers);
             });
             if (filteredFlights.length === 0) {
                 filteredFlights = flights.filter(flight => {
