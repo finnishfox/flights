@@ -8,14 +8,15 @@ class Flights extends React.Component {
     state = {currentTab: 'departures', currentDate: moment()};
 
     labels = {
-        departure: {
-            city: 'airportToID.city_en'
+        departures: {
+            city: 'airportToID.city_en',
+            time: 'timeDepExpectCalc'
         },
-        arrival: {
-            city: 'airportFromID.city_en'
+        arrivals: {
+            city: 'airportFromID.city_en',
+            time: 'timeToStand'
         },
     };
-
 
 
     componentDidMount() {
@@ -41,12 +42,7 @@ class Flights extends React.Component {
         const permission = await Notification.requestPermission();
         if (permission === 'granted') {
             const now = moment();
-            let time = '';
-            if (this.state.currentTab === 'departures') {
-                time = moment(flight.timeDepExpectCalc);
-            } else {
-                time = moment(flight.timeToStand);
-            }
+            const time = moment(flight[this.labels[this.state.currentTab].time]);
             let duration = moment.duration(time.diff(now));
             const minutesBeforeReminder = duration.subtract(moment.duration(3, 'hours')).as('minutes');
             const msBeforeReminder = minutesBeforeReminder * 60 * 1000;
@@ -58,15 +54,9 @@ class Flights extends React.Component {
 
     isMoreThanThreeHoursBeforeFlight = (flight) => {
         const now = moment();
-        let time = '';
-        if (this.state.currentTab === 'departures') {
-            time = moment(flight.timeDepExpectCalc);
-        } else {
-            time = moment(flight.timeToStand);
-        }
+        const time = moment(flight[this.labels[this.state.currentTab].time]);
         let duration = moment.duration(time.diff(now));
         return duration.as('hours') > 3;
-
     };
 
     showFlights = () => {
@@ -106,25 +96,15 @@ class Flights extends React.Component {
             });
             if (filteredFlights.length === 0) {
                 filteredFlights = flights.filter(flight => {
-                    if ((this.state.currentTab === 'departures')) {
-                        return reg.test(flight['airportToID.city_en']);
-                    }
-                    return reg.test(flight['airportFromID.city_en']);
+                    return reg.test(flight[ this.labels[this.state.currentTab].city]);
                 });
             }
             flights = filteredFlights;
         }
         return flights
             .map(flight => {
-                let date = '';
-                let city = '';
-                if (this.state.currentTab === 'departures') {
-                    date = new Date(flight.timeDepExpectCalc);
-                    city = flight['airportToID.city_en']
-                } else {
-                    date = new Date(flight.timeToStand);
-                    city = flight['airportFromID.city_en'];
-                }
+                const date = new Date(flight[this.labels[this.state.currentTab].time]);
+                const city = flight[this.labels[this.state.currentTab].city];
                 let status = '';
                 switch (flight.status) {
                     case 'DP':
