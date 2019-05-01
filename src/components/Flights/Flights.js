@@ -2,10 +2,11 @@ import React from "react";
 import './Flights.scss';
 import moment from "moment";
 import uuidv1 from 'uuid/v1';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class Flights extends React.Component {
 
-    state = {currentTab: 'departures', currentDate: moment()};
+    state = {currentTab: 'departures', currentDate: moment(), removingRow: false};
 
     labels = {
         departures: {
@@ -21,6 +22,20 @@ class Flights extends React.Component {
 
     componentDidMount() {
         this.loadFlights(moment());
+        // setInterval(()=> {
+        //     switch(this.state.jopa){
+        //         case 'burger':
+        //             this.setState({
+        //                 jopa: ''
+        //             });
+        //             break;
+        //         default:
+        //             this.setState({
+        //                 jopa: 'burger'
+        //             });
+        //             break;
+        //     }
+        // },2000);
     }
 
     loadFlights = (date) => {
@@ -96,7 +111,7 @@ class Flights extends React.Component {
             });
             if (filteredFlights.length === 0) {
                 filteredFlights = flights.filter(flight => {
-                    return reg.test(flight[ this.labels[this.state.currentTab].city]);
+                    return reg.test(flight[this.labels[this.state.currentTab].city]);
                 });
             }
             flights = filteredFlights;
@@ -135,7 +150,7 @@ class Flights extends React.Component {
                 const airlines = flight.codeShareData.map(airline => airline.airline.en.name);
                 const flightNumbers = flight.codeShareData.map(element => element.codeShare);
                 return (
-                    <tr key={flight.ID} className="Flights__table-row">
+                    <tr key={flight.ID} className='Flights__table-row'>
                         <td className={flight.term === 'A' ? 'Flights__terminal' : 'Flights__terminal Flights__terminal--blue'}>
                             {flight.term}
                         </td>
@@ -166,6 +181,22 @@ class Flights extends React.Component {
                     </tr>)
             });
     };
+
+    removeRow = (date) => {
+        setTimeout(() => this.addRow(date), 1000);
+    };
+
+    addRow = (date) => {
+        this.setState({currentDate: date, removingRow: false});
+    };
+
+    changeDate = (date) => {
+        if(!moment(date).isSame(moment(this.state.currentDate),'day')){
+            this.setState({removingRow: true},
+                this.removeRow(date));
+        }
+    };
+
 
     render() {
         const yesterday = moment().subtract(1, 'days');
@@ -240,23 +271,23 @@ class Flights extends React.Component {
                     </div>
                     <div className="Flights__navigation-wrapper">
                         <button className="Flights__change-date-button"
-                                onClick={() => this.setState({currentDate: yesterday})}>
+                                onClick={() => this.changeDate(yesterday)}>
                             <span className="Flights__date-text">{yesterday.format('DD/MM')}</span>
                             Yesterday
                         </button>
                         <button className="Flights__change-date-button"
-                                onClick={() => this.setState({currentDate: moment()})}>
+                                onClick={() => this.changeDate(moment())}>
                             <span className="Flights__date-text">{moment().format('DD/MM')}</span>
                             Today
                         </button>
                         <button className="Flights__change-date-button"
-                                onClick={() => this.setState({currentDate: tomorrow})}>
+                                onClick={() => this.changeDate(tomorrow)}>
                             <span className="Flights__date-text">{tomorrow.format('DD/MM')}</span>
                             Tomorrow
                         </button>
                     </div>
                 </nav>
-                <table className="Flights__table">
+                <table className='Flights__table'>
                     <thead className="Flights__thead">
                     <tr>
                         <th scope="col" className="Flights__table-header">Terminal</th>
@@ -269,7 +300,8 @@ class Flights extends React.Component {
                         <th scope="col" className="Flights__table-header"/>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody
+                        className={this.state.removingRow ? 'Flights__tbody Flights__tbody--removing' : 'Flights__tbody'}>
                     {this.showFlights()}
                     </tbody>
                 </table>

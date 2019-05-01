@@ -148,6 +148,18 @@
     color: $black;
   }
 
+  &__tbody{
+    transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+    transform: translateY(0);
+    opacity: 1;
+
+    &--removing{
+      transform: translateY(30px);
+      opacity: 0;
+    }
+  }
+
+
   &__table-row {
     transition: box-shadow .3s ease-in-out;
 
@@ -350,5 +362,4 @@
     }
   }
 }
-
 
